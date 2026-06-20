@@ -50,6 +50,25 @@ export async function consumeNow(recvTransport, device) {
     rtpParameters: res.params.rtpParameters,
   });
 
+  consumer.resume();
+  await emitAsync('listener:resumeConsumer').catch(() => {});
+
+  const stream = new MediaStream([consumer.track]);
+  return { consumer, stream };
+}
+
+export async function consumeNow(recvTransport, device) {
+  const res = await emitAsync('listener:consume', {
+    rtpCapabilities: device.rtpCapabilities,
+  });
+
+  const consumer = await recvTransport.consume({
+    id: res.params.id,
+    producerId: res.params.producerId,
+    kind: res.params.kind,
+    rtpParameters: res.params.rtpParameters,
+  });
+
   const stream = new MediaStream([consumer.track]);
   return { consumer, stream };
 }

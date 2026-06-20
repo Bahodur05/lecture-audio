@@ -171,6 +171,14 @@ export function registerSignaling(io) {
     });
 
     // ---- STUDENT: actually start receiving the lecturer's audio -------
+    socket.on('listener:resumeConsumer', async (_, callback) => {
+      try {
+        await socket.data.consumer?.resume();
+        callback?.({ ok: true });
+      } catch (err) {
+        callback?.({ ok: false, error: err.message });
+      }
+    });
     socket.on('listener:consume', async ({ rtpCapabilities }, callback) => {
       try {
         const session = sessionStore.get(socket.data.sessionCode);
