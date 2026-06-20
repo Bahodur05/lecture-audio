@@ -57,22 +57,6 @@ export async function consumeNow(recvTransport, device) {
   return { consumer, stream };
 }
 
-export async function consumeNow(recvTransport, device) {
-  const res = await emitAsync('listener:consume', {
-    rtpCapabilities: device.rtpCapabilities,
-  });
-
-  const consumer = await recvTransport.consume({
-    id: res.params.id,
-    producerId: res.params.producerId,
-    kind: res.params.kind,
-    rtpParameters: res.params.rtpParameters,
-  });
-
-  const stream = new MediaStream([consumer.track]);
-  return { consumer, stream };
-}
-
 export function leaveSession({ recvTransport, consumer }) {
   consumer?.close();
   recvTransport?.close();
