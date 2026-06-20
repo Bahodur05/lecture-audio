@@ -1,0 +1,19 @@
+{
+  "name": "lecture-audio-server",
+  "version": "1.0.0",
+  "description": "Low-latency lecture audio relay (SFU) server",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "mediasoup": "^3.20.9",
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1",
+    "cors": "^2.8.5",
+    "nanoid": "^5.0.9",
+    "dotenv": "^16.4.7"
+  }
+}
